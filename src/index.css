@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'NeueMontreal';
-  src: url("NeueMontreal/PPNeueMontreal-Book.otf") format("opentype");
+  src: url("./assets/NeueMontreal/PPNeueMontreal-Book.otf") format("opentype");
 }
 
 *, *::before, *::after {
