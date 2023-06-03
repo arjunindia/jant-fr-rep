@@ -1,3 +1,5 @@
+import {useEffect} from "react";
+
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     children?: React.ReactNode;
     info: string,
@@ -18,6 +20,10 @@ export default function Card({
     variant,
     ...props
 }:CardProps) {
+
+    useEffect(() => {
+       
+    }, [])
     return (
         <div className={`card ${
             (()=>{

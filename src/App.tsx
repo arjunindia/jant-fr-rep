@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import Card from './components/Card'
 import portfolio from './content/portfolio'
 function App() {
-
+  
   return (
     <>
       <Navbar />
