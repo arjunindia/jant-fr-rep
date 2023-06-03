@@ -41,14 +41,14 @@ h1{
 
 :root {
   --main-bg-color: #fffaf1;
-  --main-text-color: #1c1c1c;
+  --main-text-color: #111;
   
   --scrollbar-bg-color: #1b1b1b;
   --scrollbar-thumb-color: #009999;
 }
 .dark {
-  --main-bg-color: #1c1c1c;
-  --main-text-color: #fffaf1;
+  --main-bg-color: #111;
+  --main-text-color: #fff6e5;
 }
 ::-webkit-scrollbar {
   width: 2px;

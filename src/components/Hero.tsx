@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useState} from "react";
 import { MoveRight } from "lucide-react";
+// @ts-expect-error
+import Fluid from "fluid-canvas";
+
+
 export default function Hero() {
   const [clicked, setClicked] = useState(false);
   return (
