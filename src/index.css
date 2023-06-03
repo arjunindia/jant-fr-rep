@@ -49,11 +49,15 @@ h1{
 }
 
 #root {
-  height: 100%;
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
   transition: all 0.5s ease;
   padding: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
 
@@ -149,6 +153,7 @@ h1{
     background-color: rgba(238, 130, 238, 0.404);
     border-radius: 10px;
     gap: 50px;
+    margin-bottom: 100px;
   }
   .hero__container{
     display: flex;
@@ -183,6 +188,62 @@ h1{
     transform: translateX(10px);
   }
 
+  .card{
+    display: flex;
+    width: 75%;
+    margin: 70px auto;
+    justify-content: center;
+    gap:20px;
+  }
+  .card__img{
+    width: 40vw;
+    object-fit: cover;
+  }
+  .card__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:start;
+  } 
+  .card__info{
+    font-size: 1rem;
+    letter-spacing: .3em;
+    text-transform: capitalize;
+  }
+  .card__title{
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0;
+  }
+  .card__text{
+    width: 160px;
+  }
+  .card__reverse{
+    flex-direction: row-reverse;
+  }
+  .card__reverse .card__container{
+    align-items: end;
+    text-align: end;
+  }
+  .card__flat{
+    flex-direction: column;
+    align-items: center;
+    width: 75vw;
+  }
+  .card__flat .card__img{
+    width: 100%;
+    height: auto;
+    object-fit: fill;
+  }
+  .card__flat .card__container{
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .card__flat .card__text{
+    width: 25ch;
+  }
+
   @media screen and (max-width: 768px) {
     .navbar{
       padding: 60px 50px;
@@ -195,5 +256,40 @@ h1{
     }
     .hero__text{
       font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    .card{
+      flex-direction: column;
+      width: 90%;
+    }
+    .card__img{
+      width: 90vw;
+      height: 70vh;
+    }
+  
+    .card__info {
+      font-size: 0.7rem;
+    }
+    .card__text{
+      width: 60%;
+    }
+    .card__reverse{
+      flex-direction: column;
+
+    }
+    .card__reverse .card__container{
+      align-items: start;
+      text-align: start;
+    }
+    .card__flat{
+      width: 90%;
+    }
+    .card__flat .card__img{
+      width: 90vw;
+      height: 70vh;
+      object-fit: cover;
+    }
+    .card__flat .card__container{
+      flex-direction: column; 
     }
   }
