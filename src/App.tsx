@@ -7,6 +7,7 @@ function App() {
     <>
       <Navbar />
       <Hero />
+      <section className="container">
       <Card
         info="PUBLIC SPACES"
         title="The Color Bath"
@@ -30,6 +31,7 @@ function App() {
         alt="Perplexiplex Thumbnail"
         variant='flat'
       />
+      </section>  
     </>
   )
 }

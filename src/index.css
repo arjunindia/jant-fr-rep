@@ -190,13 +190,12 @@ h1{
 
   .card{
     display: flex;
-    width: 75%;
     margin: 70px auto;
-    justify-content: center;
     gap:20px;
+    width: 100%;
   }
   .card__img{
-    width: 40vw;
+    width: 70%;
     object-fit: cover;
   }
   .card__container{
@@ -216,7 +215,7 @@ h1{
     margin: 0;
   }
   .card__text{
-    width: 160px;
+    width: 20ch;
   }
   .card__reverse{
     flex-direction: row-reverse;
@@ -228,7 +227,6 @@ h1{
   .card__flat{
     flex-direction: column;
     align-items: center;
-    width: 75vw;
   }
   .card__flat .card__img{
     width: 100%;
@@ -242,6 +240,12 @@ h1{
   }
   .card__flat .card__text{
     width: 25ch;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 20vw;
   }
 
   @media screen and (max-width: 768px) {
@@ -258,13 +262,17 @@ h1{
       font-size: clamp(1.5rem, 5vw, 2rem);
     }
 
+    .container{
+      padding: 0 20px;
+    }
     .card{
       flex-direction: column;
       width: 90%;
     }
     .card__img{
       width: 90vw;
-      height: 70vh;
+      height: auto;
+      aspect-ratio: 1/1;
     }
   
     .card__info {
@@ -281,9 +289,6 @@ h1{
       align-items: start;
       text-align: start;
     }
-    .card__flat{
-      width: 90%;
-    }
     .card__flat .card__img{
       width: 90vw;
       height: 70vh;
@@ -291,5 +296,21 @@ h1{
     }
     .card__flat .card__container{
       flex-direction: column; 
+    }
+  }
+
+  @media screen and (max-width:1200px){
+    .hero__text{
+      font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    .container{
+      padding: 0 8vw;
+    }
+    .card__info{
+      font-size: 0.9rem;
+    }
+    .card__title{
+      font-size: 1.5rem;
     }
   }
