@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { MoveRight } from "lucide-react";
+import { MoveRight,MoveDown } from "lucide-react";
 //@ts-ignore
 import WebGLFluidCustom from "webgl-fluid-custom";
 type FluidOptions = {
@@ -53,10 +53,11 @@ const options: FluidOptions = {
 export default function Hero() {
   const [clicked, setClicked] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  let val:any = null;
   useEffect(() => {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
-      WebGLFluidCustom(canvas, options);
+      val = WebGLFluidCustom(canvas, options);
       document.addEventListener('click', function(e) {
         if (canvas.onclick)
         canvas.onclick(e);
@@ -66,9 +67,25 @@ export default function Hero() {
         canvas.onmousemove(e);
        }
     }
+    // get scroll position in px on scroll
+    const getScrollPosition = () => {
+      const scrollpos = window.scrollY;
+      if (scrollpos > 500){
+        (document.querySelector(".hero__scrolltodisc")! as HTMLDivElement).style.setProperty("opacity", "0");
+      }
+      else{
+        (document.querySelector(".hero__scrolltodisc")! as HTMLDivElement).style.setProperty("opacity", "1");
+      } 
+    }
+    document.addEventListener("scroll", getScrollPosition);
 
-    
-  }, [canvasRef.current]);
+    return () => {
+      document.removeEventListener("scroll", getScrollPosition);
+      if (val) {
+        val.destroy();
+      }
+    }
+  }, []);
   return (
     <div className="hero">
       <div className="hero__container">
@@ -108,6 +125,12 @@ export default function Hero() {
         </div>
       </div>
       <canvas ref={canvasRef} className="hero__canvas"></canvas>
+      <div className="hero__scrolltodisc">
+        <a href="#disc">
+          Scroll to discover
+        </a>
+          <MoveDown size={18} />
+      </div>
     </div>
   );
 }

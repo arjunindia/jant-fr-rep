@@ -35,9 +35,21 @@ export default function Card({
     };
     imgRef.current?.addEventListener("mouseenter", mouseEnterHandler);
     imgRef.current?.addEventListener("mouseleave", mouseLeaveHandler);
+        //detect stop scroll
+        let timer: number;
+        const scrollStopHandler = function () {
+          if (timer) clearTimeout(timer);
+          timer = window.setTimeout(function () {
+            if (imgRef.current) {
+              imgRef.current.classList.remove("card__img__scrolldown");
+              imgRef.current.classList.remove("card__img__scrollup");
+            }
+          }, 150);
+        };
     //detect scrollup or scrolldown
     let lastScrollTop = 0;
     const scrollHandler = function () {
+      scrollStopHandler();
       const st = window.pageYOffset || document.documentElement.scrollTop;
       if (st > lastScrollTop) {
         // downscroll code
@@ -55,23 +67,10 @@ export default function Card({
       lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
     };
     window.addEventListener("scroll", scrollHandler);
-    //detect stop scroll
-    let timer: number;
-    const scrollStopHandler = function () {
-      if (timer) clearTimeout(timer);
-      timer = window.setTimeout(function () {
-        if (imgRef.current) {
-          imgRef.current.classList.remove("card__img__scrolldown");
-          imgRef.current.classList.remove("card__img__scrollup");
-        }
-      }, 150);
-    };
-    window.addEventListener("scroll", scrollStopHandler);
     return () => {
         imgRef.current?.removeEventListener("mouseenter", mouseEnterHandler);
         imgRef.current?.removeEventListener("mouseleave", mouseLeaveHandler);
       window.removeEventListener("scroll", scrollHandler);
-      window.removeEventListener("scroll", scrollStopHandler);
     };
   }, []);
   return (
