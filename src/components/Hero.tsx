@@ -38,7 +38,7 @@ const options: FluidOptions = {
   GUI: false,
   BLOOM_INTENSITY: 0.2,
   CURL: 30,
-  DENSITY_DISSIPATION: 0.38,
+  DENSITY_DISSIPATION: 3,
   DYE_RESOLUTION: 512,
   SUNRAYS: false,
   COLORFUL: true,
