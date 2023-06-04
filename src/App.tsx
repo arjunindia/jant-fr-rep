@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import portfolio from "./content/portfolio";
 import { Fragment } from "react";
-function App() {
+function Page() {
   return (
     <>
       <Navbar />
@@ -17,5 +17,12 @@ function App() {
   );
 }
 
-
+function App() {
+  return (
+    <>
+    <Page />
+    <Hero showScroller={false} />
+    </>
+    );
+}
 export default App;

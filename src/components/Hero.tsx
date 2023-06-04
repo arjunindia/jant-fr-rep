@@ -50,32 +50,30 @@ const options: FluidOptions = {
   COLOR: { r: 0, g: 33, b: 255 },
   GUI: false,
 };
-export default function Hero() {
+export default function Hero({showScroller=true}:{showScroller?:boolean}) {
   const [clicked, setClicked] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   let val:any = null;
   useEffect(() => {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
+      if(showScroller){
       val = WebGLFluidCustom(canvas, options);
-      document.addEventListener('click', function(e) {
-        if (canvas.onclick)
-        canvas.onclick(e);
-       });
-       window.onmousemove = function(e) {
-        if (canvas.onmousemove)
-        canvas.onmousemove(e);
-       }
+      }
     }
     // get scroll position in px on scroll
     const getScrollPosition = () => {
       const scrollpos = window.scrollY;
       if (scrollpos > 500){
         (document.querySelector(".hero__scrolltodisc")! as HTMLDivElement).style.setProperty("opacity", "0");
+        if (scrollpos > 6000){
+        window.scrollTo({top: 0, behavior: 'instant'});
+      }
       }
       else{
         (document.querySelector(".hero__scrolltodisc")! as HTMLDivElement).style.setProperty("opacity", "1");
       } 
+      
     }
     document.addEventListener("scroll", getScrollPosition);
 
@@ -125,12 +123,12 @@ export default function Hero() {
         </div>
       </div>
       <canvas ref={canvasRef} className="hero__canvas"></canvas>
-      <div className="hero__scrolltodisc">
+      {showScroller && (<div className="hero__scrolltodisc">
         <a href="#disc" className="text__wave">
           Scroll to discover
         </a>
           <MoveDown size={18} className="arrowdown" />
-      </div>
+      </div>)}
     </div>
   );
 }
