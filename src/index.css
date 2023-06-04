@@ -192,7 +192,12 @@ canvas {
     border-radius: 10px;
     gap: 50px;
     margin-bottom: 100px;
+    background-image: url("./assets/bbblurry.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
+  
   .hero__canvas{
     position: absolute;
     top: 15px;
@@ -203,8 +208,11 @@ canvas {
     object-fit: contain;
     opacity: 0.5;
     z-index: 0;
-    filter: blur(5px);
-  }
+    backdrop-filter: blur(10000px);
+    --webkit-backdrop-filter: blur(100000px);
+    --moz-backdrop-filter: blur(100000px);
+
+  } 
   .hero__container{
     display: flex;
     flex-direction: column;
@@ -213,6 +221,7 @@ canvas {
     gap: 40px;
     width: 60%;
     z-index: 1;
+    
   }
   .hero__text{
     font-size: clamp(1.5rem, 5vw, 2.5rem);
