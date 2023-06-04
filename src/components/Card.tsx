@@ -34,7 +34,7 @@ export default function Card({
     const mouseLeaveHandler = function () {
         vidRef.current?.pause();
         vidRef.current?.style.setProperty("display", "none");
-        titleRef.current?.classList.remove("text__wave");
+        titleRef.current?.classList.remove("text__wave"); 
     };
     imgRef.current?.addEventListener("mouseenter", mouseEnterHandler);
     imgRef.current?.addEventListener("mouseleave", mouseLeaveHandler);
