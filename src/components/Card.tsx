@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useRef } from "react";
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -20,29 +20,44 @@ export default function Card({
   variant,
   ...props
 }: CardProps) {
+    const imgRef = useRef<HTMLImageElement>(null);
   useEffect(() => {
-    //check if we are scrolling down or up
+    //detect scrollup or scrolldown
     let lastScrollTop = 0;
-    const card = document.querySelector(".card__img") as HTMLImageElement;
-    window.addEventListener(
-      "scroll",
-      function () {
-        let st = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHandler = function () {
+        const st = window.pageYOffset || document.documentElement.scrollTop;
         if (st > lastScrollTop) {
-          // downscroll code
-          card.classList.add("card__img__scrolldown");
-          card.classList.remove("card__img__scrollup");
+            // downscroll code
+            if (imgRef.current) {
+            imgRef.current.classList.add("card__img__scrolldown");
+            imgRef.current.classList.remove("card__img__scrollup");
+            }
         } else {
-          // upscroll code
-          card.classList.remove("card__img__scrolldown");
-          card.classList.add("card__img__scrollup");
+            // upscroll code
+            if (imgRef.current) {
+            imgRef.current.classList.add("card__img__scrollup");
+            imgRef.current.classList.remove("card__img__scrolldown");
+            }
         }
         lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-        // remove both classes if we dont scroll'
-        
-      },
-      false
-    );
+        };
+    window.addEventListener("scroll", scrollHandler);
+    //detect stop scroll
+    let timer: number;
+    const scrollStopHandler = function () {
+        if (timer) clearTimeout(timer);
+        timer = window.setTimeout(function () {
+        if (imgRef.current) {
+            imgRef.current.classList.remove("card__img__scrolldown");
+            imgRef.current.classList.remove("card__img__scrollup");
+        }
+        }, 150);
+    }
+    window.addEventListener("scroll", scrollStopHandler);
+    return () => {
+        window.removeEventListener("scroll", scrollHandler);
+        window.removeEventListener("scroll", scrollStopHandler);
+    }
   }, []);
   return (
     <div
@@ -58,7 +73,7 @@ export default function Card({
       })()} ${className}`}
       {...props}
     >
-      <img src={image} alt={alt} className="card__img" />
+      <img src={image} alt={alt} ref={imgRef} className="card__img" />
       <div className="card__container">
         <div className="card__head">
           <span className="card__info">{info}</span>
