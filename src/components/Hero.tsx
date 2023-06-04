@@ -35,20 +35,14 @@ type FluidOptions = {
   GUI?: boolean;
 };
 const options: FluidOptions = {
-  IMMEDIATE: true, // Whether to trigger multiple random splats when initialized
-  TRIGGER: "hover", // Can be change to 'click'
-  BLOOM: false,
-  TRANSPARENT: true,
-  SUNRAYS: false,
-  COLORFUL: false,
-  CURL: 4,
-  SHADING: true,
-  SIM_RESOLUTION: 128,
-  DENSITY_DISSIPATION: 1,
-  VELOCITY_DISSIPATION: 0.01,
-  UNIQUE_COLOR: true,
-  COLOR: { r: 0, g: 33, b: 255 },
   GUI: false,
+  BLOOM_INTENSITY: 0.2,
+  CURL: 30,
+  DENSITY_DISSIPATION: 0.38,
+  DYE_RESOLUTION: 512,
+  SUNRAYS: false,
+  COLORFUL: true,
+  BLOOM_SOFT_KNEE: 0.7,
 };
 export default function Hero({showScroller=true}:{showScroller?:boolean}) {
   const [clicked, setClicked] = useState(false);
@@ -66,9 +60,6 @@ export default function Hero({showScroller=true}:{showScroller?:boolean}) {
       const scrollpos = window.scrollY;
       if (scrollpos > 500){
         (document.querySelector(".hero__scrolltodisc")! as HTMLDivElement).style.setProperty("opacity", "0");
-        if (scrollpos > 6000){
-        window.scrollTo({top: 0, behavior: 'instant'});
-      }
       }
       else{
         (document.querySelector(".hero__scrolltodisc")! as HTMLDivElement).style.setProperty("opacity", "1");

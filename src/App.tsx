@@ -21,7 +21,6 @@ function App() {
   return (
     <>
     <Page />
-    <Hero showScroller={false} />
     </>
     );
 }
