@@ -1,11 +1,74 @@
-import { useState} from "react";
+import { useState, useEffect, useRef } from "react";
 import { MoveRight } from "lucide-react";
-// @ts-expect-error
-import Fluid from "fluid-canvas";
-
-
+//@ts-ignore
+import WebGLFluidCustom from "webgl-fluid-custom";
+type FluidOptions = {
+  IMMEDIATE?: boolean; // Whether to trigger multiple random splats when initialized
+  TRIGGER?: string; // Can be change to 'click'
+  SIM_RESOLUTION?: number;
+  DYE_RESOLUTION?: number;
+  CAPTURE_RESOLUTION?: number;
+  DENSITY_DISSIPATION?: number;
+  VELOCITY_DISSIPATION?: number;
+  PRESSURE?: number;
+  PRESSURE_ITERATIONS?: number;
+  CURL?: number;
+  SPLAT_RADIUS?: number;
+  SPLAT_FORCE?: number;
+  SHADING?: boolean;
+  COLORFUL?: boolean;
+  COLOR_UPDATE_SPEED?: number;
+  PAUSED?: boolean;
+  UNIQUE_COLOR?: boolean; // If you want a unique color
+  COLOR?: { r?: number; g?: number; b?: number }; //Set the unique color
+  BACK_COLOR?: { r?: number; g?: number; b?: number };
+  TRANSPARENT?: boolean;
+  BLOOM?: boolean;
+  BLOOM_ITERATIONS?: number;
+  BLOOM_RESOLUTION?: number;
+  BLOOM_INTENSITY?: number;
+  BLOOM_THRESHOLD?: number;
+  BLOOM_SOFT_KNEE?: number;
+  SUNRAYS?: boolean;
+  SUNRAYS_RESOLUTION?: number;
+  SUNRAYS_WEIGHT?: number;
+  GUI?: boolean;
+};
+const options: FluidOptions = {
+  IMMEDIATE: true, // Whether to trigger multiple random splats when initialized
+  TRIGGER: "hover", // Can be change to 'click'
+  BLOOM: false,
+  TRANSPARENT: true,
+  SUNRAYS: false,
+  COLORFUL: false,
+  CURL: 4,
+  SHADING: true,
+  SIM_RESOLUTION: 128,
+  DENSITY_DISSIPATION: 1,
+  VELOCITY_DISSIPATION: 0.01,
+  UNIQUE_COLOR: true,
+  COLOR: { r: 0, g: 33, b: 255 },
+  GUI: false,
+};
 export default function Hero() {
   const [clicked, setClicked] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      WebGLFluidCustom(canvas, options);
+      document.addEventListener('click', function(e) {
+        if (canvas.onclick)
+        canvas.onclick(e);
+       });
+       window.onmousemove = function(e) {
+        if (canvas.onmousemove)
+        canvas.onmousemove(e);
+       }
+    }
+
+    
+  }, [canvasRef.current]);
   return (
     <div className="hero">
       <div className="hero__container">
@@ -13,7 +76,7 @@ export default function Hero() {
           Hello, world! I'm Jantana Hennard, a designer specializing in 3D
           designs and interactive experiences. I enjoy creating meaningful
           narratives through motion graphics and experimenting with new
-          technology to convey stories{" "}
+          technology to convey stories
         </h1>
         <div className="hero__link">
           <MoveRight size={24} />
@@ -44,6 +107,7 @@ export default function Hero() {
           ></a>
         </div>
       </div>
+      <canvas ref={canvasRef} className="hero__canvas"></canvas>
     </div>
   );
 }

@@ -13,7 +13,8 @@
     "fluid-canvas": "^0.9.3",
     "lucide-react": "^0.233.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "webgl-fluid-custom": "^0.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
