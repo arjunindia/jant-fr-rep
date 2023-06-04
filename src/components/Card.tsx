@@ -1,4 +1,4 @@
-import { useEffect,useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -7,6 +7,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
   image: string;
   alt: string;
+    video: string;
   className?: string;
   variant?: "flat" | "reverse" | "normal";
 }
@@ -18,46 +19,60 @@ export default function Card({
   alt,
   className,
   variant,
+  video,
   ...props
 }: CardProps) {
-    const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const vidRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
+    const mouseEnterHandler = function () {
+        vidRef.current?.play();
+        vidRef.current?.style.setProperty("display", "block");
+    };
+    const mouseLeaveHandler = function () {
+        vidRef.current?.pause();
+        vidRef.current?.style.setProperty("display", "none");
+    };
+    imgRef.current?.addEventListener("mouseenter", mouseEnterHandler);
+    imgRef.current?.addEventListener("mouseleave", mouseLeaveHandler);
     //detect scrollup or scrolldown
     let lastScrollTop = 0;
     const scrollHandler = function () {
-        const st = window.pageYOffset || document.documentElement.scrollTop;
-        if (st > lastScrollTop) {
-            // downscroll code
-            if (imgRef.current) {
-            imgRef.current.classList.add("card__img__scrolldown");
-            imgRef.current.classList.remove("card__img__scrollup");
-            }
-        } else {
-            // upscroll code
-            if (imgRef.current) {
-            imgRef.current.classList.add("card__img__scrollup");
-            imgRef.current.classList.remove("card__img__scrolldown");
-            }
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > lastScrollTop) {
+        // downscroll code
+        if (imgRef.current) {
+          imgRef.current.classList.add("card__img__scrolldown");
+          imgRef.current.classList.remove("card__img__scrollup");
         }
-        lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-        };
+      } else {
+        // upscroll code
+        if (imgRef.current) {
+          imgRef.current.classList.add("card__img__scrollup");
+          imgRef.current.classList.remove("card__img__scrolldown");
+        }
+      }
+      lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+    };
     window.addEventListener("scroll", scrollHandler);
     //detect stop scroll
     let timer: number;
     const scrollStopHandler = function () {
-        if (timer) clearTimeout(timer);
-        timer = window.setTimeout(function () {
+      if (timer) clearTimeout(timer);
+      timer = window.setTimeout(function () {
         if (imgRef.current) {
-            imgRef.current.classList.remove("card__img__scrolldown");
-            imgRef.current.classList.remove("card__img__scrollup");
+          imgRef.current.classList.remove("card__img__scrolldown");
+          imgRef.current.classList.remove("card__img__scrollup");
         }
-        }, 150);
-    }
+      }, 150);
+    };
     window.addEventListener("scroll", scrollStopHandler);
     return () => {
-        window.removeEventListener("scroll", scrollHandler);
-        window.removeEventListener("scroll", scrollStopHandler);
-    }
+        imgRef.current?.removeEventListener("mouseenter", mouseEnterHandler);
+        imgRef.current?.removeEventListener("mouseleave", mouseLeaveHandler);
+      window.removeEventListener("scroll", scrollHandler);
+      window.removeEventListener("scroll", scrollStopHandler);
+    };
   }, []);
   return (
     <div
@@ -72,8 +87,15 @@ export default function Card({
         }
       })()} ${className}`}
       {...props}
-    >
+      >
+      <video loop muted className="card__video" ref={vidRef} >
+        <source src={video} type="video/mp4" />
+        Download the
+        <a href={video}>MP4</a>
+        video.
+      </video>
       <img src={image} alt={alt} ref={imgRef} className="card__img" />
+
       <div className="card__container">
         <div className="card__head">
           <span className="card__info">{info}</span>
