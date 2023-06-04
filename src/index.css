@@ -261,13 +261,19 @@ canvas {
     margin: 70px auto;
     gap:20px;
     width: 100%;
+    perspective: 100em;
+
   }
   .card__img{
     width: 70%;
     object-fit: cover;
-    perspective: 1000px;
-    transform-style: preserve-3d;
-    transform: rotateY(0deg);
+    transition: all 0.5s ease;
+  }
+  .card__img__scrolldown{
+    transform: rotateX(-10deg);
+  }
+  .card__img__scrollup{
+    transform: rotateX(10deg);
   }
   .card__container{
     display: flex;
