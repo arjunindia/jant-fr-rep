@@ -5,8 +5,8 @@ export default function Navbar() {
         <nav className="navbar">
             <span>Jantana Hennard</span>
             <div className="navbar__links">
-                <a href="#">Archive</a>
-                <a href="#">About</a>
+                <a href="#" className="text__wave--hover">Archive</a>
+                <a href="#" className="text__wave--hover">About</a>
                 <Switch />
             </div>
         </nav>

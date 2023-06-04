@@ -24,14 +24,17 @@ export default function Card({
 }: CardProps) {
   const imgRef = useRef<HTMLImageElement>(null);
   const vidRef = useRef<HTMLVideoElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     const mouseEnterHandler = function () {
         vidRef.current?.play();
         vidRef.current?.style.setProperty("display", "block");
+        titleRef.current?.classList.add("text__wave");
     };
     const mouseLeaveHandler = function () {
         vidRef.current?.pause();
         vidRef.current?.style.setProperty("display", "none");
+        titleRef.current?.classList.remove("text__wave");
     };
     imgRef.current?.addEventListener("mouseenter", mouseEnterHandler);
     imgRef.current?.addEventListener("mouseleave", mouseLeaveHandler);
@@ -98,7 +101,7 @@ export default function Card({
       <div className="card__container">
         <div className="card__head">
           <span className="card__info">{info}</span>
-          <h3 className="card__title">{title}</h3>
+          <h3 className="card__title" ref={titleRef}>{title}</h3>
         </div>
 
         <p className="card__text">{text}</p>

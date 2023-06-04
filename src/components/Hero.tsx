@@ -126,10 +126,10 @@ export default function Hero() {
       </div>
       <canvas ref={canvasRef} className="hero__canvas"></canvas>
       <div className="hero__scrolltodisc">
-        <a href="#disc">
+        <a href="#disc" className="text__wave">
           Scroll to discover
         </a>
-          <MoveDown size={18} />
+          <MoveDown size={18} className="arrowdown" />
       </div>
     </div>
   );

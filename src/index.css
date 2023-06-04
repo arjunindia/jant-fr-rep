@@ -356,6 +356,46 @@ canvas {
   .card__img:hover{
     opacity: 0;
   }
+  .text__wave{
+    background: linear-gradient(90deg, var(--main-text-color) 0%, var(--main-bg-color) 50%, var(--main-text-color) 100%);
+    background-size: 400% 100%;
+    animation: wave 2s linear infinite;
+    background-clip: text;
+    -webkit-background-clip: text;  
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .text__wave--hover:hover{
+    background: linear-gradient(90deg, var(--main-text-color) 20%, var(--main-bg-color) 50%, var(--main-text-color) 80%);
+    background-size: 600% 100%;
+    animation: wave 2s linear infinite;
+    background-clip: text;
+    -webkit-background-clip: text;  
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .arrowdown{
+    animation: updownarrow 4s ease infinite;
+  }
+  @keyframes wave {
+    0%{
+      background-position-x: 0%;
+    }
+    90%{
+      background-position-x: 100%;
+    }
+    100%{
+      background-position-x: 100%;
+    }
+  }
+  @keyframes updownarrow{
+    25%{
+      transform: translateY(-4px);
+    }
+    75%{
+      transform: translateY(4px);
+    }
+  }
   @media screen and (max-width: 768px) {
     .navbar{
       padding: 60px 50px;
