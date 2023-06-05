@@ -59,6 +59,19 @@ export default function Hero() {
       val = WebGLFluidCustom(canvas, options);
       
     }
+    // handling stagger anination
+    const staggerElems = document.querySelectorAll(".stagger");
+    staggerElems.forEach((elem) => {
+      // split text into spans
+      const splitText = elem.textContent?.split("");
+      elem.textContent = "";
+      splitText?.forEach((char,i) => {
+        const charElem = document.createElement("span");
+        charElem.textContent = char;
+        charElem.style.setProperty("--delay", `${i}`);
+        elem.append(charElem);
+      });
+    });
     // get scroll position in px on scroll
     const getScrollPosition = () => {
       const scrollpos = window.scrollY;
@@ -82,7 +95,7 @@ export default function Hero() {
   return (
     <div className="hero">
       <div className="hero__container">
-        <h1 className="hero__text">
+        <h1 className="hero__text stagger">
           Hello, world! I'm Jantana Hennard, a designer specializing in 3D
           designs and interactive experiences. I enjoy creating meaningful
           narratives through motion graphics and experimenting with new

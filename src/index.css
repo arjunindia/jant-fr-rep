@@ -391,6 +391,14 @@ canvas {
   .arrowdown{
     animation: updownarrow 4s ease infinite;
   }
+  .stagger > span{
+    opacity: 0;
+    animation-name: text;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-delay: calc(var(--delay) * 0.005s);
+    animation-timing-function: ease-in-out;
+  }
   @keyframes wave {
     0%{
       background-position-x: 0%;
@@ -400,6 +408,16 @@ canvas {
     }
     100%{
       background-position-x: 100%;
+    }
+  }
+  @keyframes text {
+    0%{
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100%{
+      opacity: 1;
+      transform: translateY(0px);
     }
   }
   @keyframes updownarrow{
