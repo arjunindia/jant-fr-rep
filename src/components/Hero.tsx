@@ -60,18 +60,48 @@ export default function Hero() {
       
     }
     // handling stagger anination
+
     const staggerElems = document.querySelectorAll(".stagger");
+    function animateStagger(
+      elem: Element,
+    ) {
+       // split text into spans
+       const splitText = elem.textContent?.split("");
+       elem.textContent = "";
+       splitText?.forEach((char,i) => {
+         const charElem = document.createElement("span");
+         charElem.textContent = char;
+         charElem.style.setProperty("--delay", `${i}`);
+         elem.append(charElem);
+       });
+    }
+    let observer:IntersectionObserver;
+    function callback(entries:IntersectionObserverEntry[]) {
+         entries.forEach((entry) => {
+           if(entry.isIntersecting) {
+              animateStagger(entry.target);
+              observer.unobserve(entry.target);
+           } else {
+              return;
+           }
+        });
+    }
+    function createObserver(target:Element, callback:IntersectionObserverCallback) {
+       const options = {
+          root: null,
+          threshold: 1
+       };
+        observer = new IntersectionObserver(callback, options);
+       observer.observe(target);
+
+    }
+      
     staggerElems.forEach((elem) => {
-      // split text into spans
-      const splitText = elem.textContent?.split("");
-      elem.textContent = "";
-      splitText?.forEach((char,i) => {
-        const charElem = document.createElement("span");
-        charElem.textContent = char;
-        charElem.style.setProperty("--delay", `${i}`);
-        elem.append(charElem);
-      });
+      createObserver(elem, callback);
+     
     });
+
+
     // get scroll position in px on scroll
     const getScrollPosition = () => {
       const scrollpos = window.scrollY;
@@ -89,6 +119,9 @@ export default function Hero() {
       document.removeEventListener("scroll", getScrollPosition);
       if (val) {
         val.destroy();
+      }
+      if (observer) {
+        observer.disconnect();
       }
     }
   }, []);

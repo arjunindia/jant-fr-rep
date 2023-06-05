@@ -101,7 +101,7 @@ export default function Card({
       <div className="card__container">
         <div className="card__head">
           <span className="card__info">{info}</span>
-          <h3 className="card__title" ref={titleRef}>{title}</h3>
+          <h3 className="card__title stagger" ref={titleRef}>{title}</h3>
         </div>
 
         <p className="card__text">{text}</p>

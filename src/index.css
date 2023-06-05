@@ -208,7 +208,7 @@ canvas {
   
   .hero__canvas{
     position: absolute;
-    top: 15px;
+    
     right: 15px;
     border-radius: 10px;
     width: calc(100vw - 30px);

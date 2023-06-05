@@ -3,16 +3,26 @@ import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import portfolio from "./content/portfolio";
 import { Fragment } from "react";
+
+function CardList() {
+  return (
+    <section className="container" id="disc">
+      {portfolio.map((item) => {
+        return (
+          <Fragment key={item.title}>
+            <Card {...item} />
+          </Fragment>
+        );
+      })}
+    </section>
+  );
+}
 function Page() {
   return (
     <>
       <Navbar />
       <Hero />
-      <section className="container" id="disc">
-        {portfolio.map((item) => {
-          return (<Fragment key={item.title}><Card {...item} /></Fragment>);
-        })}
-      </section>
+      <CardList />
     </>
   );
 }
@@ -20,8 +30,8 @@ function Page() {
 function App() {
   return (
     <>
-    <Page />
+      <Page />
     </>
-    );
+  );
 }
 export default App;
