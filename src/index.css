@@ -280,6 +280,7 @@ canvas {
     right: 10vw;
     gap: 5px;
     transition: all 0.2s ease-out;
+    z-index: 2;
   }
   .hero__scrolltodisc a{
     text-decoration: none;
