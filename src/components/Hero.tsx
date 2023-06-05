@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { MoveRight,MoveDown } from "lucide-react";
 //@ts-ignore
 import WebGLFluidCustom from "webgl-fluid-custom";
+
+import BlurryBG from "../assets/bbblurry.svg";
 type FluidOptions = {
   IMMEDIATE?: boolean; // Whether to trigger multiple random splats when initialized
   TRIGGER?: string; // Can be change to 'click'
@@ -43,17 +45,19 @@ const options: FluidOptions = {
   SUNRAYS: false,
   COLORFUL: true,
   BLOOM_SOFT_KNEE: 0.7,
+  TRANSPARENT: true,
+  COLOR: { r: 0, g: 0, b: 0 },
 };
-export default function Hero({showScroller=true}:{showScroller?:boolean}) {
+export default function Hero() {
   const [clicked, setClicked] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   let val:any = null;
   useEffect(() => {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
-      if(showScroller){
+     
       val = WebGLFluidCustom(canvas, options);
-      }
+      
     }
     // get scroll position in px on scroll
     const getScrollPosition = () => {
@@ -113,13 +117,16 @@ export default function Hero({showScroller=true}:{showScroller?:boolean}) {
           ></a>
         </div>
       </div>
+      <img src={BlurryBG} alt="background" className="hero__bg" />
       <canvas ref={canvasRef} className="hero__canvas"></canvas>
-      {showScroller && (<div className="hero__scrolltodisc">
+
+
+       <div className="hero__scrolltodisc">
         <a href="#disc" className="text__wave">
           Scroll to discover
         </a>
           <MoveDown size={18} className="arrowdown" />
-      </div>)}
+      </div>
     </div>
   );
 }
