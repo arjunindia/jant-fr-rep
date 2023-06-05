@@ -128,7 +128,7 @@ export default function Hero() {
   return (
     <div className="hero">
       <div className="hero__container">
-        <h1 className="hero__text stagger">
+        <h1 className="hero__text  stagger ">
           Hello, world! I'm Jantana Hennard, a designer specializing in 3D
           designs and interactive experiences. I enjoy creating meaningful
           narratives through motion graphics and experimenting with new
